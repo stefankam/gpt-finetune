@@ -27,7 +27,8 @@ openai api fine_tunes.results -i ft-72Zdxae7SlTzGb5uwuDdBqik
 The analysis result appears in results.csv, attached, which includes the following fields:
   
 step,elapsed_tokens,elapsed_examples,training_loss,training_sequence_accuracy,training_token_accuracy,validation_loss,validation_sequence_accuracy,validation_token_accuracy
------------------
+
+  
 In order to predict a label (completion), one needs to follow the predure bellow:
   
 curl https://api.openai.com/v1/completions \
