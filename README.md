@@ -8,9 +8,9 @@ In the first step, we used the python file minedata.py to extract data from http
 
 this file also formats data to the gpt-finetune requested format according to https://platform.openai.com/docs/guides/fine-tuning/advanced-usage
 
-{"prompt": "<prompt text>", "completion": "<ideal generated text>"}\n
-{"prompt": "<prompt text>", "completion": "<ideal generated text>"}\n
-{"prompt": "<prompt text>", "completion": "<ideal generated text>"}/n
+{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
+{"prompt": "<prompt text>", "completion": "<ideal generated text>"}
 ...
   
 then we divide data into data_training.jsonl and data_verification.jsonl in order to first train the model , and further verify the model.
@@ -27,3 +27,12 @@ openai api fine_tunes.results -i ft-72Zdxae7SlTzGb5uwuDdBqik
 The analysis result appears in results.csv, attached, which includes the following fields:
   
 step,elapsed_tokens,elapsed_examples,training_loss,training_sequence_accuracy,training_token_accuracy,validation_loss,validation_sequence_accuracy,validation_token_accuracy
+  
+In order to predict a label (completion), one needs to follow the predure bellow:
+  
+curl https://api.openai.com/v1/completions \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": YOUR_PROMPT, "model": FINE_TUNED_MODEL}'
+
+ curl https://api.openai.com/v1/completions -H "Content-Type: application/json" -H "Authorization: Bearer $OPENAI_API_KEY" -d '{"prompt":"Posted on:</strong> 2023-05-18 - National Defence</p><p><strong>The facts:</strong></p><ul class=lst-spcd><li>On May 16, a Patriot battery in Kyiv defended against a Russian missile barrage that included Kinzhal missiles.</li><li>Ukrainian authorities have also released photos of debris from an earlier Kinzhal missile attack that a Ukrainian Patriot battery intercepted on May 3.</li><li>Russia appears to have repeatedly and specifically targeted Patriot sites in Ukraine over the past two weeks, likely because of the system&rsquo;s combat effectiveness.</li></ul><p><strong","max_tokens": 1,"model": "ada:ft-personal-2023-05-20-20-12-44"}'
